@@ -1,0 +1,42 @@
+*:after,
+*:before,
+p a,
+a,
+.sj-socialicons li a,
+.sj-roundicontext,
+.sj-roundicontext .sj-usericonholder,
+.sub-menu,
+.mega-menu,
+.sj-prev,
+.sj-next,
+.sj-navtabs li,
+.sj-radio input[type=radio]+ label,
+.sj-radio input[type=radio] + label:before,
+.sj-widgetspeciality .sj-checkbox input[type=checkbox] + label,
+.sj-widgetspeciality .sj-checkbox input[type=checkbox] + label em,
+.sj-widgetsinginwith ul li a span,
+.sj-downloadprint li a,
+.sj-downloadprint li a i,
+.sj-downloadprint li a span,
+.sj-thumbs .item,
+.sj-thumbs .item figure,
+.sj-thumbs .item figure:before,
+.sj-viewchart .ct-bar,
+.sj-panel h4,
+.sj-panel h4 i,
+.sj-panel h4 i:before,
+.sub-menu li,
+.children li,
+.sj-uploadphoto figcaption,
+.sj-articledetails li,
+.sj-nameandmail,
+.sj-userinfohold,
+.sj-usernav,
+.chosen-container-multi .chosen-choices li.search-choice
+{
+	-webkit-transition: all 300ms ease-in-out;
+	-moz-transition: all 300ms ease-in-out;
+	-ms-transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
+}

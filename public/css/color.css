@@ -1,0 +1,98 @@
+/*==========================================================================================
+								Primery Theme Colors										
+==========================================================================================*/
+/*=============================================
+			Theme Text Color
+=============================================*/
+a,
+p a,
+p a:hover,
+a:hover,
+a:focus,
+a:active,
+.sj-stars span:after,
+.sj-editorchoice:hover .sj-head h3 a,
+.sj-borderheading span,
+.sj-navtabs li:hover a,
+.sj-upcomingbook:hover .sj-postcontent h3 a,
+.sj-widgetcontent ul li:hover a,
+.sj-widgetcontent ul li.sj-more a,
+.sj-widgetimpactfector .sj-widgetcontent ul li h3 span,
+.sj-radio input[type=radio]+ label:hover:before,
+.sj-radio input[type=radio]:checked + label:before,
+.sj-radio input[type=radio]+ label:hover,
+.sj-radio input[type=radio]:checked + label,
+.sj-selectgroup .sj-checkbox input[type=checkbox] + label:hover,
+.sj-selectgroup .sj-checkbox input[type=checkbox]:checked + label,
+.sj-selectgroup .sj-checkbox input[type=checkbox] + label:hover:before,
+.sj-selectgroup .sj-checkbox input[type=checkbox]:checked + label:before,
+.sj-selectgroup .sj-checkbox input[type=checkbox] + label:hover em,
+.sj-selectgroup .sj-checkbox input[type=checkbox]:checked + label em,
+.sj-opensuccess .sj-description blockquote,
+.sj-downloadprint li:hover a,
+.sj-downloadprint li:hover a i,
+.sj-downloadprint li:hover a span,
+.sj-suprisinginfo blockquote,
+.sj-posttags li:hover a,
+.sj-newsdetail .sj-description blockquote,
+.sj-clientname,
+.sj-navigation > ul > li:hover > a,
+.sj-navigation > ul > li.current-menu-item > a,
+.sj-pagination ul li:hover a,
+.sj-pagination ul li.sj-active a,
+.sj-mailinfo,
+.sj-formaddnewfield .form-group .sj-radio input[type=radio] + label:before,
+.sj-formaddnewfield .form-group .sj-checkbox input[type=checkbox] + label:before,
+.sj-editionsettings .sj-modalboxarea .modal-body .sj-manageallsession .sj-categorysinfo a:hover,
+.sj-pagination ul li.sj-active span
+
+{ color: #5e9cea; }
+.sj-viewchart .ct-bar:hover {stroke: #5e9cea;}
+/*=============================================
+			Theme Background Color
+=============================================*/
+.sj-btn:hover,
+.sj-dropdowarrow,
+.navbar-toggle,
+.sj-btn:hover:before,
+.sj-btn.sj-btnactive:before,
+.sj-bannercontent h1:before,
+.sj-btnvideo,
+.sj-editorchoice:hover .sj-postcontent .sj-btn:before,
+.sj-prev:hover,
+.sj-next:hover,
+.sj-widgetcontent .sj-formsearch button,
+.sj-widgetquestions .sj-widgetheading,
+.sj-btnreply:hover,
+.sj-btnrecord:hover,
+.sj-tagnew,
+.navbar-toggler,
+.sj-dashboardnav > ul > li > a:before,
+.sj-formsearchvtwo button,
+.sj-articledetails li:before,
+.sj-formaddnewfield .form-group .sj-radio input[type=radio] + label:after,
+.sj-formaddnewfield .form-group .sj-checkbox input[type=checkbox] + label:after,
+.sj-reviewer-acronym span,
+.sj-formsearchvtwo input[type=submit],
+.sj-btnactive
+{ background:#5e9cea;}
+
+
+.navbar-toggler
+{ background:#5e9cea !important;}
+
+/*=============================================
+			Theme Border Color
+=============================================*/
+input:focus,
+.select select:focus,
+.form-control:focus,
+.sj-prev:hover,
+.sj-next:hover,
+.sj-btnreply:hover,
+.sj-btnrecord:hover,
+.sub-menu,
+.children,
+.sj-tagnew:before
+
+{ border-color: #5e9cea; }

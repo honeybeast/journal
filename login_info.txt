@@ -1,0 +1,14 @@
+Editor
+Username: freddiepearson@amentotech.com
+Password: secret
+Author
+Username: evanmetcalfe@amentotech.com
+Password: secret
+
+Reviewer
+Username: anthonybishop@amentotech.com
+Password: secret
+
+Reader
+Username: nathanpalmer@amentotech.com
+Password: secret
