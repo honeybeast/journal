@@ -413,6 +413,7 @@ class AuthorController extends Controller
             $data['author_info'] = $author_info;
 
             // pdf create, preview, download
+			print_r($data);exit();
             $pdf = PDF::loadView('pdf.manuscript', $data);
             return $pdf->stream('manuscript.pdf');
     }
