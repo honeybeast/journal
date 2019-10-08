@@ -319,7 +319,7 @@ address { font-style: italic; }
 	width:100%;
 	float:left;
 }
-.sj-sectionspace {padding:80px 0 0 0;}
+.sj-sectionspace {padding:50px 0 0 0;}
 .sj-locationmap {
 	width: 100%;
 	float: left;
@@ -8595,3 +8595,22 @@ div.provider-site-wrap{
     	width: 100%;
     }
 
+
+.heading_item{
+	float: left;
+	border-right: 2px dotted #636b77;
+	line-height: 20px;
+}
+.heading_item:first-child{
+	border-left: 2px dotted #636b77;
+}
+.heading_item a{
+	color: #636b77;
+	font-weight: bolder;
+	padding: 5px 8px;
+}
+.heading_item a:hover{
+	background-color: #636b77;
+	color: white;
+	font-weight: bolder;
+}

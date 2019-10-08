@@ -35,6 +35,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+                    <div class="">
+                        @php
+                            $id = $journal[0]->id;
+                        @endphp
+                        <ul class="heading">
+                            <li class="heading_item"><a href="{{{url('published_articles/'.$id)}}}">Current and Archive</a></li>
+                            <li class="heading_item"><a href="{{{url('author_guideline/'.$id)}}}">Author's guideline</a></li>
+                            <li class="heading_item"><a href="{{{url('editorial_team/'.$id)}}}">Editorial team</a></li>
+                        </ul>
+                    </div>
                     <div class="col-md-12  sj-borderheading">
                         <h2 style="font-weight: bolder; float: left; font-family: auto;">{{{$journal[0]->title}}}</h2>
                     </div>
@@ -57,7 +67,7 @@
                             <p class="issn">ISSN Number (Electronic) : {{{$journal[0]->issn_electronic}}}</p>
                         @endif
                     </div>
-                    <div class="editor" style="margin: 30px 0;">
+<!--                     <div class="editor" style="margin: 30px 0;">
                     @php
                         $editors = DB::table('model_has_roles')->where('role_id', 2)->select('model_id')->get();
                             for($i=0; $i < count($editors) ; $i++){
@@ -80,7 +90,7 @@
                             @endforeach
                         </div>
                     @endif
-                    </div>
+                    </div> -->
                     @php
                         $id = $journal[0]->id;
                         $reviewers = DB::table('reviewers_categories')
@@ -107,12 +117,11 @@
                             @foreach ($abstract as $val)
                                 <div class="col-md-6" style="float: left; margin-bottom: 20px;">
                                     @if($val->logo_img)
-                                        <img src="{{{asset('uploads/categories/'.$val->logo_img)}}}" style="max-height: 70px; float: left; margin-right: 30px;">
+                                        <a href="{{{$val->abstract_url}}}"><img src="{{{asset('uploads/categories/'.$val->logo_img)}}}" style="max-height: 70px; float: left; margin-right: 30px;"></a>
                                     @else                                    
-                                        <img src="{{{asset('uploads/scholar.png')}}}" style="max-height: 70px; max-width: 100px; float: left; margin-right: 30px;">
+                                        <a href="{{{$val->abstract_url}}}"><img src="{{{asset('uploads/scholar.png')}}}" style="max-height: 70px; max-width: 100px; float: left; margin-right: 30px;"></a>
                                     @endif
                                     <p style="margin: 10px 0; font-family: serif;">{{{$val->abstract_title}}}</p>
-                                    <a href="{{{$val->abstract_url}}}">{{{$val->abstract_url}}}</a>
                                 </div>
                             @endforeach
                         @endif
