@@ -108,7 +108,7 @@
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9">
                     <div class="col-md-12  sj-borderheading">
-                        <h2 style="font-weight: bolder; float: left;">Jorunals</h2>
+                        <h2 style="font-weight: bolder; float: left;">Journals</h2>
                     </div>
                     @php
                         $journals = DB::table('categories')->orderBy('updated_at', 'desc') ->get();
