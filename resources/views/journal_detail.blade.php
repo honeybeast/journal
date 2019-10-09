@@ -53,6 +53,9 @@
             color: white;
             font-weight: bolder;
         }
+        .heading{
+            margin-left: 20px;
+        }
 
     </style>
 
@@ -67,7 +70,6 @@
                         <ul class="heading">
                             <li class="heading_item"><a href="{{{url('published_articles/'.$id)}}}">Current and Archive</a></li>
                             <li class="heading_item"><a href="{{{url('author_guideline/'.$id)}}}">Author's guideline</a></li>
-                            <li class="heading_item"><a href="{{{url('editorial_team/'.$id)}}}">Editorial team</a></li>
                         </ul>
                     </div>
                     <div class="col-md-12  sj-borderheading">

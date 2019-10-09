@@ -106,19 +106,6 @@ class CategoryController extends Controller
         }
     }
 
-        public function detail($id)
-    {
-        $server_verification = Helper::journal_is_demo_site();
-        if (!empty($server_verification)) {
-            Session::flash('error', $server_verification);
-            return Redirect::back();
-        }
-
-        $journal = DB::table('categories')->where('id',$id)->get();
-        return View::make('journal_detail')->with('journal', $journal);
-
-    }
-
     /**
      * @access public
      * Remove the specified resource from storage.

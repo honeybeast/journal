@@ -140,7 +140,7 @@ Route::get('edition/{slug}', 'PublicController@showPublishArticle')->name('editL
 Route::post('publish-edition/article/edition-id/', 'EditionController@getEditionID');
 Route::get('published/editions/articles', 'PublicController@filterEdition');
 Route::get('published/editions/filters', 'PublicController@filterEdition');
-Route::get('journal_detail/{id}', 'CategoryController@detail');
+Route::get('journal_detail/{id}', 'PublicController@detail');
 
 
 // Account Settings Controller Route
