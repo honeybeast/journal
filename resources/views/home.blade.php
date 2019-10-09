@@ -31,7 +31,7 @@
     }
     @endphp
     <style type="text/css">
-        .col-md-6 .j_individual{
+        .j_individual{
             min-height: 380px;
         }
     </style>
