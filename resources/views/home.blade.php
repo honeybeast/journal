@@ -30,6 +30,11 @@
         }
     }
     @endphp
+    <style type="text/css">
+        .col-md-6 .j_individual{
+            min-height: 380px;
+        }
+    </style>
     @if (!empty($slide_unserialize_array))
         <div id="sj-homebanner" class="sj-homebanner owl-carousel">
             @foreach($slide_unserialize_array as $key => $slide)
@@ -102,6 +107,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+                    <div class="col-md-12  sj-borderheading">
+                        <h2 style="font-weight: bolder; float: left;">Jorunals</h2>
+                    </div>
                     @php
                         $journals = DB::table('categories')->orderBy('updated_at', 'desc') ->get();
                     @endphp

@@ -46,7 +46,7 @@
                         <div id="sj-content" class="sj-content">
                             <section class="sj-haslayout sj-sectioninnerspace">
                                 <div id="sj-editorchoiceslider" class="sj-editorchoiceslider sj-editorschoice">
-                                    <p>{{$author_guideline[0]->author_guideline}}</p>
+                                    <p style="line-height: 35px;font-size: 18px;margin: 30px;word-break: break-word;">{{$author_guideline[0]->author_guideline}}</p>
                                 </div>
                             </section>
                         </div>
