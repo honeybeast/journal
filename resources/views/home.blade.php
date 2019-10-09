@@ -102,10 +102,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9">
-                    <div class="col-md-12  sj-borderheading">
-                        <h2 style="font-weight: bolder; float: left;">Jorunals</h2>
-                        <a class="sj-btnview" style="margin-top: 30px;" href="{{{url('published/editions/articles')}}}">{{{trans('prs.btn_view_all')}}}</a>
-                    </div>
                     @php
                         $journals = DB::table('categories')->orderBy('updated_at', 'desc') ->get();
                     @endphp

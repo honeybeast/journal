@@ -38,7 +38,7 @@
     <div id="sj-twocolumns" class="sj-twocolumns">
         <div class="container">
             <div class="row">
-                @if (!empty($author_guideline))
+                @if (!empty($author_guideline[0]->author_guideline))
                     <div class="col-md-12">
                         <h3 style="font-family: auto; font-weight: bolder;">Author's Guideline</h3>
                     </div>

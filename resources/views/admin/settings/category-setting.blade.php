@@ -15,6 +15,11 @@
 @endsection
 @section('content') 
     @php $counter = 0; @endphp
+    <style type="text/css">
+        textarea.author_guideline{
+            height: 100px;
+        }
+    </style>
     <div class="container">
         <div class="row">
             <div id="sj-twocolumns" class="sj-twocolumns">
