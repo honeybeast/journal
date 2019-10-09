@@ -31,6 +31,29 @@
     }
     @endphp
 
+    <style type="text/css">
+        
+        .heading_item {
+            float: left;
+            border-right: 2px dotted #636b77;
+            line-height: 20px;
+        }
+        .heading_item:first-child {
+            border-left: 2px dotted #636b77;
+        }
+        .heading_item a {
+            color: #636b77;
+            font-weight: bolder;
+            padding: 5px 8px;
+        }
+        .heading_item a:hover {
+            background-color: #636b77;
+            color: white;
+            font-weight: bolder;
+        }
+        
+    </style>
+
     <div class="jorunal sj-twocolumns">
         <div class="container">
             <div class="row">
