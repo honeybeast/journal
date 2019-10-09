@@ -32,7 +32,9 @@
     @endphp
 
     <style type="text/css">
-        
+        #sj-main {
+            padding: 50px 0 0 0;
+        }
         .heading_item {
             float: left;
             border-right: 2px dotted #636b77;
@@ -51,7 +53,7 @@
             color: white;
             font-weight: bolder;
         }
-        
+
     </style>
 
     <div class="jorunal sj-twocolumns">
