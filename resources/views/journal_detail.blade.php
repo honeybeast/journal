@@ -121,7 +121,7 @@
                                     @else                                    
                                         <a href="{{{$val->abstract_url}}}"><img src="{{{asset('uploads/scholar.png')}}}" style="max-height: 70px; max-width: 100px; float: left; margin-right: 30px;"></a>
                                     @endif
-                                    <p style="margin: 10px 0; font-family: serif;">{{{$val->abstract_title}}}</p>
+                                    <p style="margin: 10px 0; font-family: serif; margin-top: 20px; word-wrap: break-word;">{{{$val->abstract_title}}}</p>
                                 </div>
                             @endforeach
                         @endif
