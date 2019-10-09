@@ -44,6 +44,7 @@ class Category extends Model
             $this->title = filter_var($request['title'], FILTER_SANITIZE_STRING);
             $this->image = $cat_img;
             $this->description = filter_var($request['description'], FILTER_SANITIZE_STRING);
+            $this->author_guideline = filter_var($request['author_guideline'], FILTER_SANITIZE_STRING);
             $this->issn_print = filter_var($request['issn_print'], FILTER_SANITIZE_STRING);
             $this->issn_electronic = filter_var($request['issn_electronic'], FILTER_SANITIZE_STRING);
 
@@ -74,7 +75,7 @@ class Category extends Model
 
             }else{
                 $data = array();
-                    for ($i=0; $i < count($request->abstract_title) ; $i++) { 
+                    for ($i=0; $i < isset($request->abstract_title) ; $i++) { 
 
                         $data[$i] = array(
                             'jo_id'=>$id,
@@ -116,6 +117,7 @@ class Category extends Model
             }
             $category->title = filter_var($request->title, FILTER_SANITIZE_STRING);
             $category->description = filter_var($request->description, FILTER_SANITIZE_STRING);
+            $category->author_guideline = filter_var($request->author_guideline, FILTER_SANITIZE_STRING);
             $category->issn_print = filter_var($request['issn_print'], FILTER_SANITIZE_STRING);
             $category->issn_electronic = filter_var($request['issn_electronic'], FILTER_SANITIZE_STRING);
             $category->image = filter_var($cat_img, FILTER_SANITIZE_STRING);
@@ -125,6 +127,7 @@ class Category extends Model
             $data=array(
                 'title'=>filter_var($request->title, FILTER_SANITIZE_STRING),
                 'description'=>filter_var($request->description, FILTER_SANITIZE_STRING),
+                'author_guideline'=>filter_var($request->author_guideline, FILTER_SANITIZE_STRING),
                 'issn_print'=>filter_var($request->issn_print, FILTER_SANITIZE_STRING),
                 'issn_electronic'=>filter_var($request->issn_electronic, FILTER_SANITIZE_STRING),
                 'updated_at'=>date('Y-m-d H:i:s')

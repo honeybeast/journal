@@ -91,6 +91,9 @@
                                                                     {!! Form::textarea('description', $category->description, ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('prs.ph_cat_desc')]) !!}
                                                                 </div>
                                                                 <div class="form-group">
+                                                                    {!! Form::textarea('author_guideline', $category->author_guideline, ['class' => 'form-control author_guideline', 'required' => 'required', 'placeholder' => trans('prs.ph_author_guideline')]) !!}
+                                                                </div>
+                                                                <div class="form-group">
                                                                     <label>ISSN for Print</label>
                                                                     {!! Form::text('issn_print', $category->issn_print, ['class' => 'form-control', 'placeholder' => "ISSN for Print"]) !!}
                                                                 </div>
@@ -167,6 +170,9 @@
                                                     </div>
                                                     <div class="form-group">
                                                         {!! Form::textarea('description', null, ['class' => 'form-control', 'required' =>'required', 'placeholder' => trans('prs.ph_cat_desc')]) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::textarea('author_guideline', null, ['class' => 'form-control author_guideline', 'required' => 'required', 'placeholder' => trans('prs.ph_author_guideline')]) !!}
                                                     </div>
                                                     <div class="form-group">
                                                         <label>ISSN for Print</label>

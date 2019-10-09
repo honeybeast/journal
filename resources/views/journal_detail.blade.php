@@ -31,34 +31,6 @@
     }
     @endphp
 
-    <style type="text/css">
-        #sj-main {
-            padding: 50px 0 0 0;
-        }
-        .heading_item {
-            float: left;
-            border-right: 2px dotted #636b77;
-            line-height: 20px;
-        }
-        .heading_item:first-child {
-            border-left: 2px dotted #636b77;
-        }
-        .heading_item a {
-            color: #636b77;
-            font-weight: bolder;
-            padding: 5px 8px;
-        }
-        .heading_item a:hover {
-            background-color: #636b77;
-            color: white;
-            font-weight: bolder;
-        }
-        .heading{
-            margin-left: 20px;
-        }
-
-    </style>
-
     <div class="jorunal sj-twocolumns">
         <div class="container">
             <div class="row">
@@ -94,6 +66,30 @@
                             <p class="issn">ISSN Number (Electronic) : {{{$journal[0]->issn_electronic}}}</p>
                         @endif
                     </div>
+<!--                     <div class="editor" style="margin: 30px 0;">
+                    @php
+                        $editors = DB::table('model_has_roles')->where('role_id', 2)->select('model_id')->get();
+                            for($i=0; $i < count($editors) ; $i++){
+                                $bio_data[$i] = DB::table('author_bio')
+                                ->join('users', 'users.id', '=', 'author_bio.user_id')
+                                ->where('author_bio.user_id', $editors[$i]->model_id)
+                                ->get();
+                            };
+                    @endphp
+                    @if (count($editors))
+                        <h5 style="font-size: 20px; font-family: none; font-weight: bolder;">Editor's Bio</h5>
+                        <div style="margin-left: 30px">
+                            @foreach ($bio_data as $val)
+                                <hr>
+                                <p><span style="font-weight: bolder;">Name : </span>{{{$val[0]->name}}}</p>
+                                <p><span style="font-weight: bolder;">Bio : </span><br>{{{$val[0]->bio}}}</p>
+                                <p><span style="font-weight: bolder;">Academic : </span>{{{$val[0]->academic}}}</p>
+                                <p><span style="font-weight: bolder;">Institute : </span>{{{$val[0]->institute}}}</p>
+                                <hr>
+                            @endforeach
+                        </div>
+                    @endif
+                    </div> -->
                     @php
                         $id = $journal[0]->id;
                         $reviewers = DB::table('reviewers_categories')
@@ -124,7 +120,7 @@
                                     @else                                    
                                         <a href="{{{$val->abstract_url}}}"><img src="{{{asset('uploads/scholar.png')}}}" style="max-height: 70px; max-width: 100px; float: left; margin-right: 30px;"></a>
                                     @endif
-                                    <p style="margin: 10px 0; font-family: serif; margin-top: 20px; word-wrap: break-word;">{{{$val->abstract_title}}}</p>
+                                    <p style="margin: 10px 0; font-family: serif;">{{{$val->abstract_title}}}</p>
                                 </div>
                             @endforeach
                         @endif

@@ -141,6 +141,8 @@ Route::post('publish-edition/article/edition-id/', 'EditionController@getEdition
 Route::get('published/editions/articles', 'PublicController@filterEdition');
 Route::get('published/editions/filters', 'PublicController@filterEdition');
 Route::get('journal_detail/{id}', 'PublicController@detail');
+Route::get('published_articles/{id}', 'PublicController@published_articles');
+Route::get('author_guideline/{id}', 'PublicController@author_guideline');
 
 
 // Account Settings Controller Route

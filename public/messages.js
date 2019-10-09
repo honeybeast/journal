@@ -760,6 +760,7 @@
 			"ph_author_email": "Author Email",
 			"ph_author_name": "Author Name",
 			"ph_cat_desc": "Category Description",
+			"ph_author_guideline": "Author's guideline",
 			"ph_cat_title": "Category Title",
 			"ph_category_delete_message": "Category has been deleted.",
 			"ph_cnfrm_pass": "Confirm Password*",

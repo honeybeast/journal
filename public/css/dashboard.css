@@ -2365,3 +2365,7 @@ span.notify-icon i{
     line-height: 1.5em;        /* fallback */
     max-height: 6em;    
 }
+
+textarea.author_guideline{
+    height: 100px;
+}

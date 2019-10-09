@@ -382,6 +382,7 @@ return [
     'ph_pass' => 'Password',
     'ph_cnfrm_pass' => 'Confirm Password*',
     'ph_cat_desc' => 'Journal Description',
+    'ph_author_guideline' => "Author's guideline",
     'ph_edition_date' => 'Edition Date',
     'ph_social_name' => 'Social Name',
     'ph_social_url' => 'Social URL',
