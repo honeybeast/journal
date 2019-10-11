@@ -140,11 +140,11 @@
                                 @if (!empty($category_list))
                                     <li class="menu-item-has-children page_item_has_children custom-active">
                                         <a href="javascript:void(0);">Category list</a>
-                                        <ul class="sub-menu" id="edition_menu">
+                                        <ul class="sub-menu" id="edition_menu" style="max-height: 500px;overflow: hidden;overflow-y: auto;">
                                             @foreach ($category_list as $val)
                                                 <li class="">
                                                     <a href="{{url('journal_by_category/'.$val->id)}}">
-                                                        {{{$val->category_list}}}
+                                                        - {{{$val->category_list}}}
                                                     </a>
                                                 </li>
                                             @endforeach
