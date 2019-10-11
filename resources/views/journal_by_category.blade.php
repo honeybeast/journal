@@ -43,7 +43,7 @@
                     <div class="col-md-12  sj-borderheading">
                         <h3 style="font-family: inherit; float: left;">{{{$journal[0]->category_list}}}</h3>
                     </div>
-                    @if (count($journal))
+                    @if (isset($journal))
                         @foreach ($journal as $val)
                             <div class="col-md-6 j_individual">
                                  <div class="logo">
