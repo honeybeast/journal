@@ -134,6 +134,23 @@
                         <div class="collapse navbar-collapse sj-navigation" id="navbarNav">
                             <ul>
                                 <li><a href="{{url('/')}}"><i class="lnr lnr-home"></i></a></li>
+                                @php
+                                    $category_list = DB::table('category_list')->get();
+                                @endphp
+                                @if (!empty($category_list))
+                                    <li class="menu-item-has-children page_item_has_children custom-active">
+                                        <a href="javascript:void(0);">Category list</a>
+                                        <ul class="sub-menu" id="edition_menu">
+                                            @foreach ($category_list as $val)
+                                                <li class="">
+                                                    <a href="{{url('journal_by_category/'.$val->id)}}">
+                                                        {{{$val->category_list}}}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endif
                                 @if (!empty($published_editions))
                                     <li class="menu-item-has-children page_item_has_children custom-active">
                                         <a href="javascript:void(0);">{{ trans('prs.editions') }}</a>

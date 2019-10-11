@@ -41,6 +41,7 @@ class Category extends Model
         if (!empty($request)) {
 
             $cat_img = UploadMedia::mediaUpload('category_image', $request, 'uploads/categories/');
+            $this->category_list = $request['category_list'];
             $this->title = filter_var($request['title'], FILTER_SANITIZE_STRING);
             $this->image = $cat_img;
             $this->description = filter_var($request['description'], FILTER_SANITIZE_STRING);
@@ -115,6 +116,7 @@ class Category extends Model
             } else {
                 $cat_img = UploadMedia::mediaUpload('category_image', $request, 'uploads/categories/');
             }
+            $category->category_list = $request->category_list;
             $category->title = filter_var($request->title, FILTER_SANITIZE_STRING);
             $category->description = filter_var($request->description, FILTER_SANITIZE_STRING);
             $category->author_guideline = filter_var($request->author_guideline, FILTER_SANITIZE_STRING);
@@ -125,6 +127,7 @@ class Category extends Model
         }
         else {            
             $data=array(
+                'category_list' => $request->category_list,
                 'title'=>filter_var($request->title, FILTER_SANITIZE_STRING),
                 'description'=>filter_var($request->description, FILTER_SANITIZE_STRING),
                 'author_guideline'=>filter_var($request->author_guideline, FILTER_SANITIZE_STRING),

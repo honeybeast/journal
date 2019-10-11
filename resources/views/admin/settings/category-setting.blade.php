@@ -89,6 +89,21 @@
                                                         {!! Form::open(['url' => '/dashboard/general/settings/edit-category/'.$category->id,'class'=>'category_edit_form edit_form', 
                                                         'files' => true, 'enctype' => 'multipart/form-data']) !!}
                                                             <fieldset>
+                                                                <select class="form-control" required="required" name="category_list" style="margin-bottom: 20px;">
+                                                                    <option disabled selected value>Select Category</option>
+                                                                    @php
+                                                                        $category_list = DB::table('category_list')->get();
+                                                                    @endphp
+                                                                    @if(isset($category_list))
+                                                                        @foreach($category_list as $val)
+                                                                            <option value="{{{$val->id}}}" 
+                                                                                @if ($val->id == $category->category_list)
+                                                                                    selected='selected'
+                                                                                @endif
+                                                                             >{{{$val->category_list}}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
                                                                 <div class="form-group">
                                                                     {!! Form::text('title', $category->title, ['class' => 'form-control', 'required' => 'required']) !!}
                                                                 </div>
@@ -170,6 +185,17 @@
                                             {!! Form::open(['url' => '/dashboard/general/settings/create-category','class'=>'category_edit_form edit_form', 'id'=>'group_form', 
                                             'enctype' => 'multipart/form-data', 'multiple' => true]) !!}
                                                 <fieldset>
+                                                    <select class="form-control" required="required" name="category_list" style="margin-bottom: 20px;">
+                                                        <option disabled selected value>Select Category</option>
+                                                        @php
+                                                            $category_list = DB::table('category_list')->get();
+                                                        @endphp
+                                                        @if(isset($category_list))
+                                                            @foreach($category_list as $val)
+                                                                <option value="{{{$val->id}}}">{{{$val->category_list}}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                     <div class="form-group">
                                                         {!! Form::text('title', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('prs.ph_cat_title')]) !!}
                                                     </div>

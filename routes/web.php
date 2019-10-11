@@ -143,6 +143,7 @@ Route::get('published/editions/filters', 'PublicController@filterEdition');
 Route::get('journal_detail/{id}', 'PublicController@detail');
 Route::get('published_articles/{id}', 'PublicController@published_articles');
 Route::get('author_guideline/{id}', 'PublicController@author_guideline');
+Route::get('journal_by_category/{id}', 'PublicController@journal_by_category');
 
 
 // Account Settings Controller Route

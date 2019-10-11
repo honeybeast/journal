@@ -183,4 +183,17 @@ class PublicController extends Controller
         return View::make('author_guideline')->with('journal', $journal);
 
     }
+
+    public function journal_by_category($id)
+    {
+        $server_verification = Helper::journal_is_demo_site();
+        if (!empty($server_verification)) {
+            Session::flash('error', $server_verification);
+            return Redirect::back();
+        }
+
+        $journal = DB::table('categories')->join('category_list', 'category_list.id', '=', 'categories.category_list')->where('categories.category_list',$id)->get();
+        return View::make('journal_by_category')->with('journal', $journal);
+
+    }
 }
