@@ -40,29 +40,35 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-8 col-lg-9">
-                    <div class="col-md-12  sj-borderheading">
-                        <h3 style="font-family: inherit; float: left;">{{{$journal[0]->category_list}}}</h3>
+                    @if(isset($journal[0]))
+                        <div class="col-md-12  sj-borderheading">
+                            <h3 style="font-family: inherit; float: left;">{{{$journal[0]->category_list}}}</h3>
+                        </div>
+                        @if (isset($journal))
+                            @foreach ($journal as $val)
+                                <div class="col-md-6 j_individual">
+                                     <div class="logo">
+                                        <a href="{{{url('journal_detail/'.$val->id)}}}">
+                                            @if(!empty($val->image))
+                                                <img src="{{{asset($val->image)}}}">
+                                            @else
+                                                <img src="{{{asset('uploads/default_journal.jpg')}}}">
+                                            @endif
+                                        </a>
+                                     </div>
+                                     <div class="j_title">
+                                         <h3>{{{$val->title}}}</h3>
+                                     </div>
+                                     <div class="j_des">
+                                         <p class="j_des_txt">{{{$val->description}}}</p>
+                                     </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    @else
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="min-height: 400px;">
+                        <h1 style="text-align: center; margin-top: 100px;">There is no Journals.</h1>
                     </div>
-                    @if (isset($journal))
-                        @foreach ($journal as $val)
-                            <div class="col-md-6 j_individual">
-                                 <div class="logo">
-                                    <a href="{{{url('journal_detail/'.$val->id)}}}">
-                                        @if(!empty($val->image))
-                                            <img src="{{{asset($val->image)}}}">
-                                        @else
-                                            <img src="{{{asset('uploads/default_journal.jpg')}}}">
-                                        @endif
-                                    </a>
-                                 </div>
-                                 <div class="j_title">
-                                     <h3>{{{$val->title}}}</h3>
-                                 </div>
-                                 <div class="j_des">
-                                     <p class="j_des_txt">{{{$val->description}}}</p>
-                                 </div>
-                            </div>
-                        @endforeach
                     @endif
                 </div>
                 <div class="col-12 col-sm-12 col-md-4 col-lg-3">
