@@ -67,7 +67,7 @@
                         @endif
                     @else
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="min-height: 400px;">
-                        <h1 style="text-align: center; margin-top: 100px;">There is no Journals.</h1>
+                        <h1 style="text-align: center; margin-top: 100px;">There is no Journal.</h1>
                     </div>
                     @endif
                 </div>
