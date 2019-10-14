@@ -134,7 +134,7 @@ class Article extends Model
      */
     public static function getArticleNotificationData($article_id)
     {
-        return DB::table('articles')->select('id', 'corresponding_author_id', 'status', 'submitted_document', 'title', 'abstract')
+        return DB::table('articles')->select('id', 'corresponding_author_id', 'unique_code','status', 'submitted_document', 'title', 'abstract')
             ->where('id', $article_id)->get()->first();
     }
 

@@ -202,6 +202,7 @@ class AuthorController extends Controller
                 if (!empty($submitted_article)) {
                     $email_params['article_title'] = $submitted_article->title;
                     $email_params['article_id'] = $submitted_article->id;
+                    $email_params['article_unique_code'] = $submitted_article->unique_code;
                     $corresponding_author_id = $submitted_article->corresponding_author_id;
                     if (!empty($corresponding_author_id)) {
                         $corresponding_author = User::getUserDataByID($corresponding_author_id);
