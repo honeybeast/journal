@@ -472,4 +472,18 @@ class AuthorController extends Controller
             $pdf = PDF::loadView('pdf.manuscript', $data);
             return $pdf->download('manuscript.pdf');
     }
+
+        public function terms()
+    {
+        if (Auth::user()) {
+            $user_role_type = User::getUserRoleType(Auth::user()->id);
+            $role = $user_role_type->role_type;
+            if ($role == 'author') {
+                return View::make('article.terms');
+            } else {
+                Auth::logout();
+                return Redirect::to('/login');
+            }
+        }
+    }
 }

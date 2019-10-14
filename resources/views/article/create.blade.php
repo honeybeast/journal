@@ -120,7 +120,7 @@
                                 </fieldset>
                                 <div class="sj-submitdetails">
                                     <input style="margin-left: 10px;" type="checkbox" value="policy" class="form-check-input required" id="policy">
-                                    <span style="margin-left: 30px;">{{ trans('prs.accept_note') }}<a href="javascript:void(0);" style="margin-left: 5px;">{{{trans('prs.terms_conditions')}}}</a></span>
+                                    <span style="margin-left: 30px;">{{ trans('prs.accept_note') }}<a href="{{{url('author/terms')}}}" style="margin-left: 5px;">{{{trans('prs.terms_conditions')}}}</a></span>
                                     {!! Form::submit(trans('prs.btn_submit'), ['class' => 'sj-btn sj-btnactive']) !!}
                                     <!-- <input type="submit" name="submit" value="Submit Now" class="sj-btn sj-btnactive"> -->
                                 </div>

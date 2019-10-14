@@ -54,6 +54,7 @@ Route::post('{role}/dashboard/update-accepted-article', 'ArticleController@updat
 Route::get('author/user/{id}/{status}', 'AuthorController@index')->name('authorArticles');
 Route::get('author/user/{id}/{status}/article-search', 'AuthorController@index');
 Route::get('author/create-article', 'AuthorController@create')->name('checkAuthor');
+Route::get('author/terms', 'AuthorController@terms');
 Route::post('author/store-article', 'AuthorController@store');
 Route::post('author/resubmit-article', 'AuthorController@resubmitArticle');
 Route::post('author/user/article/author-notified', 'AuthorController@authorNotified');
