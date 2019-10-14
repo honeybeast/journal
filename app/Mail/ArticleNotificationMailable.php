@@ -289,7 +289,6 @@ class ArticleNotificationMailable extends Mailable
         $admin_name = $superadmin_name;
         $link = $this->prepare_redirect_link($article_link, 'view Article');
         $id = $article_id;
-        $unique_code = $article_unique_code;
         $signature = $this->prepare_email_signature();
         $app_content = $this->template_data->body;
 
@@ -299,7 +298,6 @@ class ArticleNotificationMailable extends Mailable
                                     %article_link%
                                     %signature%
                                     %article_id%
-                                    %unique_code%
                                     Greetings Admin!<br/>
 									Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magniquae Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip exommodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia desunt mollit anim id est laborum sed ut perspiciatis unde.<br/>
 									';";
@@ -313,7 +311,6 @@ class ArticleNotificationMailable extends Mailable
         $app_content = str_replace("%article_link%", $link, $app_content);
         $app_content = str_replace("%signature%", $signature, $app_content);
         $app_content = str_replace("%article_id%", $id, $app_content);
-        $app_content = str_replace("%unique_code%", $unique_code, $app_content);
 
         $body = "";
         $body .= $this->prepare_email_header();
