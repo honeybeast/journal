@@ -39,8 +39,8 @@
     <div class="jorunal sj-twocolumns">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                    <p style="word-wrap: break-word;">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding: 30px 70px;min-height: 400px;">
+                    <p style="word-wrap: break-word;line-height: 2.3em;font-size: 15px;">
                         Dear Editor,
 
 

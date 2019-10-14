@@ -166,7 +166,7 @@ return [
                     or to open a claim.',
     'paypal_warning_note' => 'Payment without a shipping address are not covered by PayPals seller protection policies and programs',
     'from' => 'From',
-    'editions' => 'Editions',
+    'editions' => 'Volumes',
     'previous' => 'Previous',
     'next' => 'Next',
     'memo' => 'Memo',

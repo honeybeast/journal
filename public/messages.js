@@ -3326,7 +3326,7 @@
 			"edition_settings": "Bask\u0131 Ayarlar\u0131",
 			"edition_success": "Bask\u0131 ba\u015far\u0131yla yay\u0131nland\u0131",
 			"edition_updated": "G\u00fcncelleme S\u00fcr\u00fcm\u00fc",
-			"editions": "Editions",
+			"editions": "Volumes",
 			"editor_feedback": "Edit\u00f6rlerin Geri Bildirimi",
 			"editor_pick": "Edit\u00f6r\u00fcn Se\u00e7imi",
 			"email_sett_var": "E-posta Ayar\u0131 De\u011fi\u015fkenleri",
