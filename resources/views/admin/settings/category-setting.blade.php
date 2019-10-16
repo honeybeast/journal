@@ -15,11 +15,6 @@
 @endsection
 @section('content') 
     @php $counter = 0; @endphp
-    <style type="text/css">
-        textarea.author_guideline{
-            height: 100px;
-        }
-    </style>
     <div class="container">
         <div class="row">
             <div id="sj-twocolumns" class="sj-twocolumns">
@@ -101,6 +96,25 @@
                                                                                     selected='selected'
                                                                                 @endif
                                                                              >{{{$val->category_list}}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
+                                                                <select class="form-control" required="required" name="editor_list" style="margin-bottom: 20px;">
+                                                                    <option disabled selected value>Select Editor</option>
+                                                                    @php
+                                                                        $editor_list = DB::table('users')
+                                                                            ->join('model_has_roles','users.id','=','model_has_roles.model_id')
+                                                                            ->where('model_has_roles.role_id', '2')
+                                                                            ->select('users.name','users.id')
+                                                                            ->get();
+                                                                    @endphp
+                                                                    @if(isset($editor_list))
+                                                                        @foreach($editor_list as $val)
+                                                                            <option value="{{{$val->id}}}"
+                                                                                @if ($val->id == $category->editor_id)
+                                                                                    selected='selected'
+                                                                                @endif
+                                                                             >{{{$val->name}}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
@@ -196,6 +210,24 @@
                                                             @endforeach
                                                         @endif
                                                     </select>
+
+                                                    <select class="form-control" required="required" name="editor_list" style="margin-bottom: 20px;">
+                                                        <option disabled selected value>Select Editor</option>
+                                                        @php
+                                                            $editor_list = DB::table('users')
+                                                                ->join('model_has_roles','users.id','=','model_has_roles.model_id')
+                                                                ->where('model_has_roles.role_id', '2')
+                                                                ->select('users.name','users.id')
+                                                                ->get();
+
+                                                        @endphp
+                                                        @if(isset($editor_list))
+                                                            @foreach($editor_list as $val)
+                                                                <option value="{{{$val->id}}}">{{{$val->name}}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+
                                                     <div class="form-group">
                                                         {!! Form::text('title', null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => trans('prs.ph_cat_title')]) !!}
                                                     </div>
