@@ -1,3 +1,6 @@
+<h1 style="color: red;font-weight: bold; text-align: center; font-size: 50px;"> 
+@php echo "We are sorry, Our site is under maintenance mode."; exit(); @endphp
+</h1>
 @extends('master')
 @section('title'){{ config('app.name') }} @stop
 @section('description', 'This is description tag')
