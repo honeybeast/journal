@@ -87,20 +87,16 @@
                     </div>
                     <div class="editor" style="margin: 30px 0;">
                     @php
-                        $editors = DB::table('model_has_roles')->where('role_id', 2)->select('model_id')->get();
-                            for($i=0; $i < count($editors) ; $i++){
-                                $bio_data[$i] = DB::table('author_bio')
-                                ->join('users', 'users.id', '=', 'author_bio.user_id')
-                                ->where('author_bio.user_id', $editors[$i]->model_id)
-                                ->get();
-                            };
+                        $editor_name = DB::table('categories')
+                            ->join('users','users.id','=','categories.editor_id')
+                            ->where('categories.id', $journal[0]->id)
+                            ->select('users.name')
+                            ->get();
                     @endphp
-                    @if (isset($editors))
+                    @if (isset($editor_name))
                         <h5 style="font-size: 20px; font-family: none; font-weight: bolder;">Editor in chief</h5>
                         <div style="margin-left: 30px">
-                            @foreach ($bio_data as $val)
-                                <p style="font-family: auto; font-size: 18px;">{{{$val[0]->name}}}</p>
-                            @endforeach
+                            <p style="font-family: auto; font-size: 18px;">{{{$editor_name[0]->name}}}</p>
                         </div>
                     @endif
                     </div>
@@ -113,8 +109,8 @@
                     @endphp
                     @if(count($reviewers))
                     <div class="reviewer_list">
-                        <h5 style="font-size: 20px; font-family: none; font-weight: bolder;">Peer reviewers list</h5>
                         @foreach($reviewers as $val)
+                            <h5 style="font-size: 20px; font-family: none; font-weight: bolder;">Peer reviewers list</h5>
                             <p style="margin-left: 30px; font-family: auto; font-size: 18px;">{{{$val->name}}}</p>
                         @endforeach
                     </div>
