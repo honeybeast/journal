@@ -109,8 +109,8 @@
                     @endphp
                     @if(count($reviewers))
                     <div class="reviewer_list">
+                        <h5 style="font-size: 20px; font-family: none; font-weight: bolder;">Peer reviewers list</h5>
                         @foreach($reviewers as $val)
-                            <h5 style="font-size: 20px; font-family: none; font-weight: bolder;">Peer reviewers list</h5>
                             <p style="margin-left: 30px; font-family: auto; font-size: 18px;">{{{$val->name}}}</p>
                         @endforeach
                     </div>
