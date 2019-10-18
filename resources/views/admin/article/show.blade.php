@@ -216,7 +216,7 @@
                                             {!! Form::hidden('article', $article->id) !!}
                                         </fieldset>
                                         <div class="sj-popupbtn sj-popupbtnvtwo">
-                                            {!! Form::submit(trans('prs.btn_submit'), ['class' => 'sj-btn sj-btnactive','v-on:click' => 'showloading']) !!}
+                                            {!! Form::submit(trans('prs.btn_submit'), ['id'=>'comment_submit', 'class' => 'sj-btn sj-btnactive','v-on:click' => 'showloading']) !!}
                                         </div>
                                     {!! Form::close() !!}
                                 @endif

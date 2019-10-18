@@ -108,7 +108,7 @@
                                             </figure>
                                             <div class="sj-userinfoname">
                                                 <span>{{{ Carbon\Carbon::parse($article->created_at)->diffForHumans()}}} {{ trans('prs.on') }} {{{Carbon\Carbon::parse($article->created_at)->format('l \\a\\t H:i:s')}}}</span>
-                                                <h3>{{{$article->title}}}</h3>
+                                                <h3>{{{$article->article_title}}}</h3>
                                             </div>
 
                                             @if ($article->status == "accepted_articles")
