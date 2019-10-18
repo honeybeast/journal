@@ -63,6 +63,7 @@ class ArticleController extends Controller
         $user_role = $user_role_type->role_type;
         $page_title = Helper::DashboardArticlePageTitle($status);
         $payment_mode = SiteManagement::getMetaValue('payment_mode');
+        $keyword = "";
         if (empty($article_status)) {
             return Redirect::to('/' . $user_role . '/dashboard/' . $user_id . '/articles-under-review');
         } else {
@@ -81,7 +82,7 @@ class ArticleController extends Controller
                 'admin.article.index',
                 compact(
                     'page_title', 'editions', 'user_id',
-                    'articles', 'article_status', 'user_role', 'payment_mode'
+                    'articles', 'article_status', 'user_role', 'payment_mode', 'keyword'
                 )
             );
         }

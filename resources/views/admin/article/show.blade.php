@@ -211,7 +211,7 @@
                                                 </span>
                                             </div>
                                             <div class="form-group">
-                                                {!! Form::textarea('comments', null, ['class' => 'form-control', 'placeholder' => trans('prs.ph_add_feedback')]) !!}
+                                                {!! Form::textarea('comments', null, ['class' => 'form-control comment', 'required', 'placeholder' => trans('prs.ph_add_feedback')]) !!}
                                             </div>
                                             {!! Form::hidden('article', $article->id) !!}
                                         </fieldset>

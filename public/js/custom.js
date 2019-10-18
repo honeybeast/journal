@@ -2,6 +2,13 @@
     $(document).ready(function(){
       var abs = $(".abstract").html();
 
+      $("#comment_submit").click(function() {
+        if($.trim($(".comment").val()) == "")
+        {
+          setTimeout(function() { $(".provider-site-wrap").hide(); }, 100);
+        }
+      });
+
       $(document).on("click", "#add_abs", function(){
         $(".abstract").append(abs);
       });
