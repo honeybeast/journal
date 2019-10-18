@@ -57,7 +57,7 @@
                                             ->join('categories','categories.id','=','articles.article_category_id')
                                             ->where('categories.editor_id', $user_id)
                                             ->where('articles.status', $article_status)
-                                            ->select('articles.title as article_title', 'categories.title as category_title', 'articles.*', 'categories.*')
+                                            ->select('articles.id as article_id', 'categories.id as category_id', 'articles.title as article_title', 'categories.title as category_title', 'articles.*', 'categories.*')
                                             ->get();
                                 }
                                 else
@@ -67,7 +67,7 @@
                                             ->where('categories.editor_id', $user_id)
                                             ->where('articles.status', $article_status)
                                             ->where('articles.title', 'like', '%' . $keyword . '%')
-                                            ->select('articles.title as article_title', 'categories.title as category_title', 'articles.*', 'categories.*')
+                                            ->select('articles.id as article_id', 'categories.id as category_id', 'articles.title as article_title', 'categories.title as category_title', 'articles.*', 'categories.*')
                                             ->get();
                                 }
 
@@ -79,8 +79,8 @@
                                         $author = App\User::getUserDataByID($article->corresponding_author_id);
                                         $edition = App\Article::getArticleEdition($article->edition_id);
                                     @endphp
-                                    <li v-on:click.prevent="func($event)" id="headingOne-{{{$article->id}}}" class="sj-articleheader {{{ $errors->has('article_pdf') ? 'is-invalid' : '' }}}"
-                                        data-toggle="collapse" data-target="#collapseOne-{{{$article->id}}}" aria-expanded="true" aria-controls="collapseOne-{{{$article->id}}}">
+                                    <li v-on:click.prevent="func($event)" id="headingOne-{{{$article->article_id}}}" class="sj-articleheader {{{ $errors->has('article_pdf') ? 'is-invalid' : '' }}}"
+                                        data-toggle="collapse" data-target="#collapseOne-{{{$article->article_id}}}" aria-expanded="true" aria-controls="collapseOne-{{{$article->article_id}}}">
                                         <div class="sj-detailstime">
                                             @if($article->notify == 1)
                                                 <span class="notify-icon" v-if="notified"><i class="fas fa-comment"></i></span>
@@ -101,7 +101,7 @@
                                             <span class="sj-mailinfo">{{{$author->email}}}</span>
                                         </div>
                                     </li>
-                                    <li id="collapseOne-{{{$article->id}}}" class="collapse sj-active sj-userinfohold" aria-labelledby="headingOne-{{{$article->id}}}" data-parent="#accordion">
+                                    <li id="collapseOne-{{{$article->article_id}}}" class="collapse sj-active sj-userinfohold" aria-labelledby="headingOne-{{{$article->article_id}}}" data-parent="#accordion">
                                         <div class="sj-userinfoimgname">
                                             <figure class="sj-userinfimg">
                                                 <img src="{{{ asset(App\Helper::getUserImage($article->corresponding_author_id,$author->user_image,'medium')) }}}" alt="{{{trans('prs.user_img')}}}">
@@ -117,11 +117,11 @@
                                                     $editionStatus = App\Edition::getEditionStatusByID($article->edition_id);
                                                 @endphp
                                                 <div class="sj-acceptedarticleshold">
-                                                    {!! Form::open(['url' => url('/'.$user_role.'/dashboard/update-accepted-article'),'class'=>'sj-categorysform', 'id'  => $article->id, 'files' => true, 'enctype' => 'multipart/form-data']) !!}
+                                                    {!! Form::open(['url' => url('/'.$user_role.'/dashboard/update-accepted-article'),'class'=>'sj-categorysform', 'id'  => $article->article_id, 'files' => true, 'enctype' => 'multipart/form-data']) !!}
                                                         <fieldset>
                                                             <div class="form-group">
                                                                 <upload-files-field
-                                                                    :doc_id="assign_article_pdf+'{{{$article->id}}}'"
+                                                                    :doc_id="assign_article_pdf+'{{{$article->article_id}}}'"
                                                                     :uploaded_file="'{{{App\Article::getArticleFullName($article->publish_document)}}}'"
                                                                     :file_name="this.file_name"
                                                                     :hidden_field_name="'hidden_pdf_field'"
@@ -136,9 +136,9 @@
                                                                     {!! Form::number('price',!empty($article->price) ? $article->price : null  , ['class' => 'form-control', 'min' => '1', 'placeholder' => trans('prs.ph_article_price') ]) !!}
                                                                 </div>
                                                             @endif
-                                                            {!! Form::hidden('article', $article->id) !!}
+                                                            {!! Form::hidden('article', $article->article_id) !!}
                                                             <div class="sj-categorysbtn">
-                                                                {!! Form::submit(trans('prs.btn_save'), ['class' => 'sj-btn sj-btnactive','id' =>$article->id ]) !!}
+                                                                {!! Form::submit(trans('prs.btn_save'), ['class' => 'sj-btn sj-btnactive','id' =>$article->article_id ]) !!}
                                                             </div>
                                                         </fieldset>
                                                     {!! Form::close() !!}
@@ -156,7 +156,7 @@
                                                     <span>
                                                         <img src="{{{asset('images/thumbnails/pdf-img.png')}}}" style="margin-right: 5px;">
                                                     </span>
-                                                    <a href="{{ url('author/create-pdf/'. $article->id) }}" style="text-decoration: none !important;">Preview</a> | <a href="{{ url('author/download-pdf/'. $article->id) }}" style="text-decoration: none !important;">Download</a>
+                                                    <a href="{{ url('author/create-pdf/'. $article->article_id) }}" style="text-decoration: none !important;">Preview</a> | <a href="{{ url('author/download-pdf/'. $article->article_id) }}" style="text-decoration: none !important;">Download</a>
                                                 </p>
                                             </div>
                                             <div class="sj-downloadheader">
@@ -177,7 +177,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @php $comments = App\Article::getAdminArticleComments($article->id,'reviewer'); @endphp
+                                        @php $comments = App\Article::getAdminArticleComments($article->article_id,'reviewer'); @endphp
                                         @if (!empty($comments))
                                             <div class="sj-feedbacktitle">
                                                 <h2>{{{trans('prs.feedback')}}}</h2>
