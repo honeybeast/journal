@@ -47,8 +47,7 @@
             var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
             var logo_extension = filename.split('.').pop();
             var allow_1 = jQuery.inArray(logo_extension, allowed_extension);
-// console.log(logo_extension);
-// console.log(allow_1);
+
             if (allow_1<0) {
               file_flag = -1;
               return false;
