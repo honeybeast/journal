@@ -228,3 +228,15 @@
         </div>
     </div>
 @endsection
+<script type="text/javascript">
+  (function($){
+    $(document).ready(function(){
+      $("#comment_submit").click(function() {
+        if($.trim($(".comment").val()) == "")
+        {
+          setTimeout(function() { $(".provider-site-wrap").hide(); }, 100);
+        }
+      });
+    });
+  })(jQuery);
+</script>
