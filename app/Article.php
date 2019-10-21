@@ -152,6 +152,8 @@ class Article extends Model
         if (!empty($request) && !empty($user_id) && !empty($article_id)) {
             $comment = $request->comments;
             $status = $request->status;
+            $m_price = $request->m_price;
+            DB::table('articles')->where('id',$article_id)->update(['m_price'=> $m_price]);
             return DB::table('comments')->insert(
                 [
                     'comment_author' => $user_id, 'article_id' => $article_id, 'comment' => $comment, 'status' => $status,

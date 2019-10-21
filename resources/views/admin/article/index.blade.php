@@ -90,6 +90,16 @@
                                                 <span><i class="ti-layers"></i>{{{$category->category_title}}}</span>
                                             @endif
                                                 <span><i class="ti-bookmark"></i>{{ trans('prs.id') }}{{{$article->unique_code}}}</span>
+                                            @if ($article->status=="accepted_articles")
+                                                @php
+                                                    $pay_state = DB::table('articles')->where('id',$article->article_id)->get();
+                                                @endphp
+                                                @if($pay_state[0]->pay_verified ==0)
+                                                    <span style="color: red"><i class="ti-face-sad" style="color: red"></i>Pre-approved</span>
+                                                @else
+                                                    <span style="color: #03a9f4"><i class="ti-face-smile" style="color: #03a9f4"></i>Approved</span>
+                                                @endif
+                                            @endif
                                             @if(!empty($edition))
                                                 <span><i class="ti-bookmark-alt"></i>{{{ trans('prs.edition') }}}: {{{$edition->title}}}</span>
                                             @endif
@@ -239,6 +249,16 @@
                                                 <span><i class="ti-layers"></i>{{{$category->title}}}</span>
                                             @endif
                                                 <span><i class="ti-bookmark"></i>{{ trans('prs.id') }}{{{$article->unique_code}}}</span>
+                                            @if ($article->status=="accepted_articles")
+                                                @php
+                                                    $pay_state = DB::table('articles')->where('id',$article->id)->get();
+                                                @endphp
+                                                @if($pay_state[0]->pay_verified ==0)
+                                                    <span style="color: red"><i class="ti-face-sad" style="color: red"></i>Pre-approved</span>
+                                                @else
+                                                    <span style="color: #03a9f4"><i class="ti-face-smile" style="color: #03a9f4"></i>Approved</span>
+                                                @endif
+                                            @endif
                                             @if(!empty($edition))
                                                 <span><i class="ti-bookmark-alt"></i>{{{ trans('prs.edition') }}}: {{{$edition->title}}}</span>
                                             @endif

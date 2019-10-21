@@ -208,6 +208,9 @@
                                                         'rejected' => trans('prs.reject_article'),
                                                         null))
                                                     !!}
+                                                    <div class="form-group">
+                                                        <input type="number" style="width: 270px; float: right;margin: 5px 0; display: block;" placeholder="Manuscript Price(USD)" name="m_price" class="m_price" min="1" max="1000" required>
+                                                    </div>
                                                 </span>
                                             </div>
                                             <div class="form-group">

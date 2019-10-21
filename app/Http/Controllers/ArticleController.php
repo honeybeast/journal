@@ -221,6 +221,7 @@ class ArticleController extends Controller
             );
             $email_params = array();
             $status = $request['status'];
+            $m_price = isset($request['m_price'])? $request['m_price']: 0;
             $status_title = Helper::setArticleMenuParameter($status);
             $user_id = Auth::user()->id;
             $user_role_type = User::getUserRoleType($user_id);

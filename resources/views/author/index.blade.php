@@ -62,6 +62,16 @@
                                         <span><i class="ti-calendar"></i>{{{ Carbon\Carbon::parse($article->created_at)->format('d-m-Y') }}}</span>                                @if(!empty($category->title))
                                         <span><i class="ti-layers"></i>{{{$category->title}}}</span> @endif
                                         <span><i class="ti-bookmark"></i>ID: {{{$article->unique_code}}}</span>
+                                        @if ($article->status=="accepted_articles")
+                                            @php
+                                                $pay_state = DB::table('articles')->where('id',$article->id)->get();
+                                            @endphp
+                                            @if($pay_state[0]->pay_verified ==0)
+                                                <span style="color: red"><i class="ti-face-sad" style="color: red"></i>Pre-approved</span>
+                                            @else
+                                                <span style="color: #03a9f4"><i class="ti-face-smile" style="color: #03a9f4"></i>Approved</span>
+                                            @endif
+                                        @endif
                                         <h4>{{{$article->title}}}</h4>
                                     </div>
                                     <div class="sj-nameandmail">
@@ -100,6 +110,21 @@
                                         <div class="sj-description">
                                             {{{htmlspecialchars_decode(stripslashes($article->excerpt))}}}
                                         </div>
+                                        @if(($article->status == "accepted_articles")&&($pay_state[0]->pay_verified ==0))
+                                            <div class="sj-checkpaymentmethod" style="margin: 20px 0">
+                                                <div class="sj-title" style="width: auto;">
+                                                    <h3>{{{trans('prs.select_pay_method')}}}</h3>
+                                                </div>
+                                                <ul class="sj-paymentmethod">
+                                                    <li style="width: auto">
+                                                        <a href="{{{url('paypal/ec-checkout_pre')}}}" style="border: 5px solid #5e9cea; padding: 15px 18px;">
+                                                            <i class="fa fa-paypal"></i>
+                                                            <span><em>{{{trans('prs.pay_amount_via')}}}</em>{{{trans('prs.gateway_note')}}}</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endif
                                         <div class="sj-preview" style="float: right;">
                                             <p>
                                                 <span>
