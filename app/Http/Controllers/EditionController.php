@@ -128,6 +128,7 @@ class EditionController extends Controller
             $unassigned_articles = DB::table('articles')->select('*')
                 ->where('status', 'accepted_articles')
                 ->Where('edition_id', null)
+                ->Where('pay_verified', 1)
                 ->orWhere('edition_id', $id)
                 ->get()->all();
             // Get articles assign to this edition
