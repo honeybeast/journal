@@ -2,15 +2,6 @@
     $(document).ready(function(){
       var abs = $(".abstract").html();
 
-      $("select[name = 'status']").on('change', function() {
-        console.log(this.value);
-        if (this.value=="accepted_articles") {
-          $('.m_price').prop("disabled", false);
-        }else{
-          $('.m_price').prop("disabled", true);
-        }
-      });
-
       $("#comment_submit").click(function() {
         if($.trim($(".comment").val()) == "")
         {
@@ -106,6 +97,15 @@
               url_flag = -1;
               return false;
             }
+          }
+        });
+
+        $("select[name = 'status']").on('change', function() {
+          console.log(this.value);
+          if (this.value=="accepted_articles") {
+            $('.m_price').prop("disabled", false);
+          }else{
+            $('.m_price').prop("disabled", true);
           }
         });
 
