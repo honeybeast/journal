@@ -217,7 +217,7 @@ class PaymentController extends Controller
             } else {
                 session()->put(['code' => 'danger', 'message' => "Error processing PayPal payment for Order $invoice->id!"]);
             }
-            return redirect('author/user/'.$id./'accepted-articles');
+            return redirect('author/user/'.$id.'/accepted-articles');
         }
     }
 
