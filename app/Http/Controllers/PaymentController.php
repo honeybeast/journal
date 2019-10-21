@@ -488,9 +488,8 @@ class PaymentController extends Controller
         session()->forget('product_vat');
         return $invoice;
     }
-}
 
-protected function createInvoice_pre($cart, $status, $payment_detail, $id)
+    protected function createInvoice_pre($cart, $status, $payment_detail, $id)
     {
         //create invoice
         $invoice = new Invoice();
