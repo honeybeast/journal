@@ -175,6 +175,9 @@ Route::get('paypal/ec-checkout-success', 'PaymentController@getExpressCheckoutSu
 Route::get('paypal/adaptive-pay', 'PaymentController@getAdaptivePay');
 Route::post('paypal/notify', 'PaymentController@notify');
 
+Route::get('paypal/ec-checkout_pre/{id}', 'PaymentController@getExpressCheckout_pre');
+
+
 
 // Email Template Controller Route
 Route::get('dashboard/superadmin/emails/get-email-type', 'EmailController@getEmailType');

@@ -117,7 +117,7 @@
                                                 </div>
                                                 <ul class="sj-paymentmethod">
                                                     <li style="width: auto">
-                                                        <a href="{{{url('paypal/ec-checkout_pre')}}}" style="border: 5px solid #5e9cea; padding: 15px 18px;">
+                                                        <a href="{{{url('paypal/ec-checkout_pre/'.$article->id)}}}" style="border: 5px solid #5e9cea; padding: 15px 18px;">
                                                             <i class="fa fa-paypal"></i>
                                                             <span><em>{{{trans('prs.pay_amount_via')}}}</em>{{{trans('prs.gateway_note')}}}</span>
                                                         </a>

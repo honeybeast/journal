@@ -89,6 +89,20 @@ class PaymentController extends Controller
             session()->put(['code' => 'danger', 'message' => "Error processing PayPal payment for Order $invoice->id!"]);
         }
     }
+    public function getExpressCheckout_pre(Request $request, $id)
+    {
+        $id = $request->id;
+        $recurring = ($request->get('mode') === 'recurring') ? true : false;
+        $cart = $this->getCheckoutData_pre($recurring, $id);
+        $payment_detail = array();
+        try {
+            $response = $this->provider->setExpressCheckout($cart, $recurring);
+            return redirect($response['paypal_link']);
+        } catch (\Exception $e) {
+            $invoice = $this->createInvoice($cart, 'Invalid', $payment_detail);
+            session()->put(['code' => 'danger', 'message' => "Error processing PayPal payment for Order $invoice->id!"]);
+        }
+    }
 
     /**
      * @access public
@@ -216,6 +230,86 @@ class PaymentController extends Controller
                         Mail::to($super_admin_email)->send(new ArticleNotificationMailable($email_params, $template_data, $role));
                     }
                 } elseif ($role == "reader") {
+                    $role_id = User::getRoleIDByUserID($user_id);
+                    $customer_template_data = EmailTemplate::getEmailTemplatesByID($role_id, 'new_order');
+                    if (!empty($customer_template_data)) {
+                        Mail::to(Auth::user()->email)->send(new ArticleNotificationMailable($email_params, $template_data, $role));
+                    }
+
+                }
+            }
+        }
+        return $data;
+    }
+
+    protected function getCheckoutData_pre($recurring = false, $id)
+    {
+
+
+        $article_info = DB::table('articles')->where('id', $id)->get();
+
+        $title = $article_info[0]->title;
+        $price = $article_info[0]->m_price;
+
+        $user_id = Auth::user()->id;
+        DB::table('orders')->insert(
+            ['user_id' => $user_id, 'product_id' => $id, 'invoice_id' => null, 'status' => 'pending', 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()]
+        );
+        $custom_order_id = DB::getPdo()->lastInsertId();
+
+        $random_number = Helper::generateRandomCode(4);
+        $unique_code = strtoupper($random_number);
+        $data = [];
+        $order_id = Invoice::all()->count() + 1;
+        if ($recurring === true) {
+            $data['items'] = [
+                [
+                    'name' => 'Monthly Subscription ' . config('paypal.invoice_prefix') . ' #' . $order_id,
+                    'price' => 0,
+                    'qty' => 1,
+                ],
+            ];
+            $data['return_url'] = url('/paypal/ec-checkout-success?mode=recurring');
+            $data['subscription_desc'] = 'Monthly Subscription ' . config('paypal.invoice_prefix') . ' #' . $order_id;
+        } else { 
+            $data['items'] = [
+                [
+                    'product_id' => $id,
+                    'name' => $title,
+                    'price' => $price,
+                    'qty' => 1,
+                    'custom_order_id' => $custom_order_id,
+                ],
+
+            ];
+            $data['return_url'] = url('/paypal/ec-checkout-success');
+        }
+        $data['invoice_id'] = config('paypal.invoice_prefix') . '_' . $unique_code . '_' . $order_id;
+        $data['invoice_description'] = "Order #$order_id Invoice";
+        $data['cancel_url'] = url('/');
+        $total = 0;
+        foreach ($data['items'] as $item) {
+            $total += $item['price'] * $item['qty'];
+        }
+        $data['total'] = $total;
+
+        // sent mail
+        if (!empty(config('mail.username')) && !empty(config('mail.password'))) {
+            $email_params = array();
+            $role_type = array("superadmin", "author");
+            $superadmin = User::getUserByRoleType('superadmin');
+            $super_admin_email = $superadmin[0]->email;
+
+            $email_params['new_order_admin_email'] = $superadmin[0]->name;
+            $email_params['new_order_id'] = $data['invoice_id'];
+            $email_params['new_order_customer_name'] = Auth::user()->name;
+            foreach ($role_type as $key => $role) {
+                if ($role == "superadmin") {
+                    $template_data = EmailTemplate::getEmailTemplatesByID($superadmin[0]->role_id, 'new_order');
+                    if (!empty($template_data)) {
+                        Mail::to($super_admin_email)->send(new ArticleNotificationMailable($email_params, $template_data, $role));
+                    }
+                } elseif ($role == "author") {
                     $role_id = User::getRoleIDByUserID($user_id);
                     $customer_template_data = EmailTemplate::getEmailTemplatesByID($role_id, 'new_order');
                     if (!empty($customer_template_data)) {
