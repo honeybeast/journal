@@ -126,7 +126,7 @@
                                             </div>
                                         @elseif(($article->status == "accepted_articles")&&($pay_state[0]->pay_verified ==1))
                                             @php
-                                                $invoice = DB::table('items')->where('id',$article->id)->get();
+                                                $invoice = DB::table('items')->where('product_id',$article->id)->get();
                                             @endphp
                                             <div>
                                                 <a href="{{{url('/user/products/invoice/'.$invoice[0]->invoice_id) }}}">
