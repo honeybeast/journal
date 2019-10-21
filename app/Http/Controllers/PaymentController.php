@@ -161,7 +161,8 @@ class PaymentController extends Controller
         $recurring = ($request->get('mode') === 'recurring') ? true : false;
         $token = $request->get('token');
         $PayerID = $request->get('PayerID');
-        $cart = $this->getCheckoutData_pre($recurring);
+        $id = session()->get('product_id');
+        $cart = $this->getCheckoutData_pre($recurring, $id);
         // Verify Express Checkout Token
         $response = $this->provider->getExpressCheckoutDetails($token);
         if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
