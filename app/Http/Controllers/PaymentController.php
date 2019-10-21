@@ -71,6 +71,22 @@ class PaymentController extends Controller
         return Redirect::to('/user/products/thankyou');
     }
 
+    public function getIndex_pre(Request $request, $id, $status)
+    {
+        $response = [];
+        if (session()->has('code')) {
+            $response['code'] = session()->get('code');
+            session()->forget('code');
+        }
+        if (session()->has('message')) {
+            $response['message'] = session()->get('message');
+            session()->forget('message');
+        }
+        $error_code = session()->get('code');
+        Session::flash('payment_message', $response);
+        return Redirect::to('author/user/'.$id.'/'.$status);
+    }
+
     /**
      * @access public
      * @param \Illuminate\Http\Request $request
@@ -195,10 +211,13 @@ class PaymentController extends Controller
             $invoice = $this->createInvoice_pre($cart, $status, $payment_detail, $id);
             if ($invoice->paid) {
                 session()->put(['code' => 'success', 'payment_message' => "Order $invoice->id has been paid successfully!"]);
+                DB::table('articles')
+                ->where('id', $id)
+                ->update(['pay_verified' => 1]);
             } else {
                 session()->put(['code' => 'danger', 'message' => "Error processing PayPal payment for Order $invoice->id!"]);
             }
-            return redirect('paypal/redirect-url');
+            return redirect('paypal/redirect-url_pre');
         }
     }
 

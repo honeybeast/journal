@@ -177,6 +177,8 @@ Route::post('paypal/notify', 'PaymentController@notify');
 
 Route::get('paypal/ec-checkout_pre/{id}', 'PaymentController@getExpressCheckout_pre');
 Route::get('paypal/ec-checkout-success_pre/{id}', 'PaymentController@getExpressCheckoutSuccess_pre');
+Route::get('paypal/redirect-url/{id}/{status}', 'PaymentController@getIndex_pre');
+
 
 
 
