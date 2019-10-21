@@ -559,6 +559,7 @@ class PaymentController extends Controller
             $super_admin = User::getUserByRoleType('superadmin');
             $super_admin_email = $super_admin[0]->email;
             $date = Carbon::parse($payment_detail['payment_date'])->format('F j, Y');
+            $tax = filter_var($payment_detail['sales_tax'], FILTER_SANITIZE_STRING);
             $invoice->sales_tax = filter_var($payment_detail['sales_tax'], FILTER_SANITIZE_STRING);
 
             // if (session()->has('product_vat')) {
