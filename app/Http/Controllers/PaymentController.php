@@ -522,10 +522,8 @@ class PaymentController extends Controller
         $invoice->currency_code = filter_var($payment_detail['currency_code'], FILTER_SANITIZE_STRING);
         $invoice->payer_status = filter_var($payment_detail['payer_status'], FILTER_SANITIZE_STRING);
         $invoice->transaction_id = filter_var($payment_detail['transaction_id'], FILTER_SANITIZE_STRING);
-        if (session()->has('product_vat')) {
-            $tax = sprintf("%.2f", session()->get('product_vat'));
-            $invoice->sales_tax = $tax;
-        }
+        $tax = filter_var($payment_detail['sales_tax'], FILTER_SANITIZE_STRING);
+        $invoice->sales_tax = $tax;
         $invoice->invoice_id = filter_var($payment_detail['invoice_id'], FILTER_SANITIZE_STRING);
         $invoice->shipping_amount = $payment_detail['shipping_amount'];
         $invoice->handling_amount = $payment_detail['handling_amount'];
