@@ -554,7 +554,7 @@ class PaymentController extends Controller
             $article_info = DB::table('articles')->where('id', $id)->get();
 
             $title = $article_info[0]->title;
-            $price = $article_info[0]->m_price;
+            $product_price = $article_info[0]->m_price;
 
             $super_admin = User::getUserByRoleType('superadmin');
             $super_admin_email = $super_admin[0]->email;
