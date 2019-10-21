@@ -156,6 +156,52 @@ class PaymentController extends Controller
         }
     }
 
+    public function getExpressCheckoutSuccess_pre(Request $request)
+    {
+        $recurring = ($request->get('mode') === 'recurring') ? true : false;
+        $token = $request->get('token');
+        $PayerID = $request->get('PayerID');
+        $cart = $this->getCheckoutData_pre($recurring);
+        // Verify Express Checkout Token
+        $response = $this->provider->getExpressCheckoutDetails($token);
+        if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
+            if ($recurring === true) {
+                $response = $this->provider->createMonthlySubscription($response['TOKEN'], 9.99, $cart['subscription_desc']);
+                if (!empty($response['PROFILESTATUS']) && in_array($response['PROFILESTATUS'], ['ActiveProfile', 'PendingProfile'])) {
+                    $status = 'Processed';
+                } else {
+                    $status = 'Invalid';
+                }
+            } else {
+                // Perform transaction on PayPal
+                $payment_status = $this->provider->doExpressCheckoutPayment($cart, $token, $PayerID);
+                $status = $payment_status['PAYMENTINFO_0_PAYMENTSTATUS'];
+            }
+            $payment_detail = array();
+            $payment_detail['payer_name'] = $response['FIRSTNAME'] . " " . $response['LASTNAME'];
+            $payment_detail['payer_email'] = $response['EMAIL'];
+            $payment_detail['seller_email'] = $payment_status['PAYMENTINFO_0_SELLERPAYPALACCOUNTID'];
+            $payment_detail['currency_code'] = $response['CURRENCYCODE'];
+            $payment_detail['payer_status'] = $response['PAYERSTATUS'];
+            $payment_detail['transaction_id'] = $payment_status['PAYMENTINFO_0_TRANSACTIONID'];
+            $payment_detail['sales_tax'] = $response['TAXAMT'];
+            $payment_detail['invoice_id'] = $response['INVNUM'];
+            $payment_detail['shipping_amount'] = $response['SHIPPINGAMT'];
+            $payment_detail['handling_amount'] = $response['HANDLINGAMT'];
+            $payment_detail['insurance_amount'] = $response['INSURANCEAMT'];
+            $payment_detail['paypal_fee'] = !empty($payment_status['PAYMENTINFO_0_FEEAMT']) ? $payment_status['PAYMENTINFO_0_FEEAMT'] : '';
+            $payment_detail['payment_date'] = $payment_status['TIMESTAMP'];
+            $payment_detail['product_qty'] = $cart['items'][0]['qty'];
+            $invoice = $this->createInvoice($cart, $status, $payment_detail);
+            if ($invoice->paid) {
+                session()->put(['code' => 'success', 'payment_message' => "Order $invoice->id has been paid successfully!"]);
+            } else {
+                session()->put(['code' => 'danger', 'message' => "Error processing PayPal payment for Order $invoice->id!"]);
+            }
+            return redirect('paypal/redirect-url');
+        }
+    }
+
 
     /**
      * @access protected
@@ -282,7 +328,7 @@ class PaymentController extends Controller
                 ],
 
             ];
-            $data['return_url'] = url('/paypal/ec-checkout-success');
+            $data['return_url'] = url('/paypal/ec-checkout-success_pre');
         }
         $data['invoice_id'] = config('paypal.invoice_prefix') . '_' . $unique_code . '_' . $order_id;
         $data['invoice_description'] = "Order #$order_id Invoice";
