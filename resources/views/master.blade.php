@@ -44,7 +44,8 @@
     <link href="{{ asset('css/jquery.tagsinput-revisited.css') }}" rel="stylesheet">
     <script src="{{ asset('js/jquery.tagsinput-revisited.js') }}"></script>
 
-    <script src="{{ asset('js/custom.js') }}"></script>    
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/special.js') }}"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1">
