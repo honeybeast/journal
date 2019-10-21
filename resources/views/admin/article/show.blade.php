@@ -205,8 +205,8 @@
                                                         'accepted_articles' => trans('prs.accept_article'),
                                                         'minor_revisions' => trans('prs.minor_revision'),
                                                         'major_revisions'=>trans('prs.major_revision'),
-                                                        'rejected' => trans('prs.reject_article'),
-                                                        null))
+                                                        'rejected' => trans('prs.reject_article')
+                                                        ))
                                                     !!}
                                                     <div class="form-group">
                                                         <input type="number" style="width: 270px; float: right;margin: 5px 0; display: block;" placeholder="Manuscript Price(USD)" name="m_price" class="m_price" min="1" max="1000" required>

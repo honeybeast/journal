@@ -58,7 +58,7 @@
                             <div class="bounce3"></div>
                         </div>
                     </div>
-                    <sticky_messages :message="'Article is Submitting'" v-show="progressing" v-cloak></sticky_messages>
+                    <sticky_messages :message="'Manuscript is Submitting'" v-show="progressing" v-cloak></sticky_messages>
                     <div id="sj-content" class="sj-content sj-addarticleholdcontent">
                         <div class="sj-dashboardboxtitle">
                             <h2>{{{trans('prs.add_article')}}}</h2>
