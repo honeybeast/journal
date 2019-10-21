@@ -128,8 +128,8 @@
                                             @php
                                                 $invoice = DB::table('items')->where('product_id',$article->id)->get();
                                             @endphp
-                                            <div>
-                                                <a href="{{{url('/user/products/invoice/'.$invoice[0]->invoice_id) }}}">
+                                            <div class="sj-downloadheader">
+                                                <a href="{{{url('/user/products/invoice/'.$invoice[0]->invoice_id)}}}" style="background-color: #5d9ceb;padding: 8px;color: white;">
                                                     <span>{{{trans('prs.generate_invoice')}}}</span>
                                                 </a>
                                             </div>
