@@ -156,12 +156,11 @@ class PaymentController extends Controller
         }
     }
 
-    public function getExpressCheckoutSuccess_pre(Request $request)
+    public function getExpressCheckoutSuccess_pre(Request $request, $id)
     {
         $recurring = ($request->get('mode') === 'recurring') ? true : false;
         $token = $request->get('token');
         $PayerID = $request->get('PayerID');
-        $id = session()->get('product_id');
         $cart = $this->getCheckoutData_pre($recurring, $id);
         // Verify Express Checkout Token
         $response = $this->provider->getExpressCheckoutDetails($token);
@@ -329,7 +328,7 @@ class PaymentController extends Controller
                 ],
 
             ];
-            $data['return_url'] = url('/paypal/ec-checkout-success_pre');
+            $data['return_url'] = url('/paypal/ec-checkout-success_pre'.$id);
         }
         $data['invoice_id'] = config('paypal.invoice_prefix') . '_' . $unique_code . '_' . $order_id;
         $data['invoice_description'] = "Order #$order_id Invoice";
