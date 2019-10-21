@@ -99,7 +99,7 @@ class PaymentController extends Controller
             $response = $this->provider->setExpressCheckout($cart, $recurring);
             return redirect($response['paypal_link']);
         } catch (\Exception $e) {
-            $invoice = $this->createInvoice($cart, 'Invalid', $payment_detail);
+            $invoice = $this->createInvoice_pre($cart, 'Invalid', $payment_detail, $id);
             session()->put(['code' => 'danger', 'message' => "Error processing PayPal payment for Order $invoice->id!"]);
         }
     }
@@ -192,7 +192,7 @@ class PaymentController extends Controller
             $payment_detail['paypal_fee'] = !empty($payment_status['PAYMENTINFO_0_FEEAMT']) ? $payment_status['PAYMENTINFO_0_FEEAMT'] : '';
             $payment_detail['payment_date'] = $payment_status['TIMESTAMP'];
             $payment_detail['product_qty'] = $cart['items'][0]['qty'];
-            $invoice = $this->createInvoice($cart, $status, $payment_detail);
+            $invoice = $this->createInvoice_pre($cart, $status, $payment_detail, $id);
             if ($invoice->paid) {
                 session()->put(['code' => 'success', 'payment_message' => "Order $invoice->id has been paid successfully!"]);
             } else {
@@ -328,7 +328,7 @@ class PaymentController extends Controller
                 ],
 
             ];
-            $data['return_url'] = url('/paypal/ec-checkout-success_pre'.$id);
+            $data['return_url'] = url('/paypal/ec-checkout-success_pre/'.$id);
         }
         $data['invoice_id'] = config('paypal.invoice_prefix') . '_' . $unique_code . '_' . $order_id;
         $data['invoice_description'] = "Order #$order_id Invoice";
@@ -486,6 +486,119 @@ class PaymentController extends Controller
         session()->forget('product_title');
         session()->forget('product_price');
         session()->forget('product_vat');
+        return $invoice;
+    }
+}
+
+protected function createInvoice_pre($cart, $status, $payment_detail, $id)
+    {
+        //create invoice
+        $invoice = new Invoice();
+        $invoice->title = filter_var($cart['invoice_description'], FILTER_SANITIZE_STRING);
+        $invoice->price = $cart['total'];
+        $invoice->payer_name = filter_var($payment_detail['payer_name'], FILTER_SANITIZE_STRING);
+        $invoice->payer_email = filter_var($payment_detail['payer_email'], FILTER_SANITIZE_EMAIL);
+        $invoice->seller_email = filter_var($payment_detail['seller_email'], FILTER_SANITIZE_EMAIL);
+        $invoice->currency_code = filter_var($payment_detail['currency_code'], FILTER_SANITIZE_STRING);
+        $invoice->payer_status = filter_var($payment_detail['payer_status'], FILTER_SANITIZE_STRING);
+        $invoice->transaction_id = filter_var($payment_detail['transaction_id'], FILTER_SANITIZE_STRING);
+        if (session()->has('product_vat')) {
+            $tax = sprintf("%.2f", session()->get('product_vat'));
+            $invoice->sales_tax = $tax;
+        }
+        $invoice->invoice_id = filter_var($payment_detail['invoice_id'], FILTER_SANITIZE_STRING);
+        $invoice->shipping_amount = $payment_detail['shipping_amount'];
+        $invoice->handling_amount = $payment_detail['handling_amount'];
+        $invoice->insurance_amount = $payment_detail['insurance_amount'];
+        $invoice->payment_mode = filter_var('paypal', FILTER_SANITIZE_STRING);
+        $invoice->paypal_fee = $payment_detail['paypal_fee'];
+        if (!strcasecmp($status, 'Completed') || !strcasecmp($status, 'Processed')) {
+            $invoice->paid = 1;
+        } else {
+            $invoice->paid = 0;
+        }
+        $invoice->save();
+        $invoice_id = DB::getPdo()->lastInsertId();
+        // create item
+        collect($cart['items'])->each(function ($product) use ($invoice) {
+            $product_price = $invoice->price - $invoice->sales_tax;
+            $item = new Item();
+            $item->invoice_id = filter_var($invoice->id, FILTER_SANITIZE_NUMBER_INT);
+            $item->product_id = filter_var($product['product_id'], FILTER_SANITIZE_NUMBER_INT);
+            $item->item_name = filter_var($product['name'], FILTER_SANITIZE_STRING);
+            $item->item_price = $product_price;
+            $item->item_qty = filter_var($product['qty'], FILTER_SANITIZE_NUMBER_INT);
+            $item->save();
+            $hits = 1;
+            $user_id = Auth::user()->id;
+            DB::table('downloads')->insert(
+                ['user_id' => $user_id, 'product_id' => $product['product_id'], 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()]
+            );
+            DB::table('orders')
+                ->where('id', $product['custom_order_id'])
+                ->update(['status' => 'completed']);
+
+            //DB Query
+            $article = DB::table('articles')->select('hits')->where('id', $product['product_id'])->get()->first();
+            if (($article->hits == 0)) {
+                $final_count = 1;
+            } else {
+                $final_count = $article->hits + 1;
+            }
+            DB::table('articles')
+                ->where('id', $product['product_id'])
+                ->update(['hits' => $final_count]);
+        });
+        // sent mail
+        if (!empty(config('mail.username')) && !empty(config('mail.password'))) {
+
+            $article_info = DB::table('articles')->where('id', $id)->get();
+
+            $title = $article_info[0]->title;
+            $price = $article_info[0]->m_price;
+
+            $super_admin = User::getUserByRoleType('superadmin');
+            $super_admin_email = $super_admin[0]->email;
+            $date = Carbon::parse($payment_detail['payment_date'])->format('F j, Y');
+            $invoice->sales_tax = filter_var($payment_detail['sales_tax'], FILTER_SANITIZE_STRING);
+
+            // if (session()->has('product_vat')) {
+            //     $tax = sprintf("%.2f", session()->get('product_vat'));
+            //     $invoice->sales_tax = $tax;
+            // } else {
+            //     $tax = 0.00;
+            // }
+            $email_params = array();
+            $email_params['success_order_admin_name'] = $super_admin[0]->name;
+            $email_params['success_order_product_title'] = $title;
+            $email_params['success_order_invoice_id'] = $payment_detail['invoice_id'];
+            $email_params['success_order_vat_amount'] = $tax;
+            $email_params['success_order_gross_amount'] = $product_price;
+            $email_params['success_order_total_amount'] = $cart['total'];
+            $email_params['success_order_currency'] = $payment_detail['currency_code'];
+            $email_params['success_order_payment_method'] = 'Paypal';
+            $email_params['success_order_quantity'] = $payment_detail['product_qty'];
+            $email_params['success_order_payment_date'] = $date;
+            $email_params['success_order_customer_name'] = User::getUserNameByID(Auth::user()->id);
+            $email_params['admin_success_order_link'] = url('/login?user_id=' . $super_admin[0]->id . '&email_type=success_order&invoice_id=' . $invoice_id);
+            $email_params['customer_success_order_link'] = url('/login?user_id=' . Auth::user()->id . '&email_type=success_order&invoice_id=' . $invoice_id);
+            $role_type = array("superadmin", "author");
+            foreach ($role_type as $key => $role) {
+                if ($role == "superadmin") {
+                    $template_data = EmailTemplate::getEmailTemplatesByID($super_admin[0]->role_id, 'success_order');
+                    if (!empty($template_data)) {
+                        Mail::to($super_admin_email)->send(new ArticleNotificationMailable($email_params, $template_data, $role));
+                    }
+                } elseif ($role == "author") {
+                    $reader_role_id = User::getRoleIDByUserID(Auth::user()->id);
+                    $customer_template_data = EmailTemplate::getEmailTemplatesByID($reader_role_id, 'success_order');
+                    if (!empty($customer_template_data)) {
+                        Mail::to(Auth::user()->email)->send(new ArticleNotificationMailable($email_params, $customer_template_data, $role));
+                    }
+                }
+            }
+        }
+
         return $invoice;
     }
 }
