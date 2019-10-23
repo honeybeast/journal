@@ -1,6 +1,3 @@
-@php
-    echo"Coming soon..."; exit();
-@endphp
 @extends('master')
 @section('title'){{ config('app.name') }} @stop
 @section('description', 'This is description tag')
