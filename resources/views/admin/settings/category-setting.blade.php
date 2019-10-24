@@ -15,6 +15,25 @@
 @endsection
 @section('content') 
     @php $counter = 0; @endphp
+    <style type="text/css">
+        .meta_tag, .meta-cur{
+            background-color: #f7f7f7;
+            padding: 10px;
+            border: 1px solid #c1c1c1;
+            border-radius: 8px;
+            overflow-y: scroll;
+            max-height: 173px;
+            min-height: 173px;
+        }
+        .meta_add_btn{
+            border-radius: 50%;
+            background-color: #24d00b;
+            padding: 3px 6px;
+            color: white;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
     <div class="container">
         <div class="row">
             <div id="sj-twocolumns" class="sj-twocolumns">
