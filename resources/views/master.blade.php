@@ -46,6 +46,7 @@
 
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/special.js') }}"></script>
+    <script src="{{ asset('js/meta.js') }}"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1">
