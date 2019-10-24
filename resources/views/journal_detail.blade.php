@@ -1,4 +1,4 @@
-@extends('master')
+@extends('master_journal')
 @section('title'){{ config('app.name') }} @stop
 @section('description', 'This is description tag')
 @section('content')
