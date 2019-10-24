@@ -170,6 +170,23 @@
                                                                           @endforeach
                                                                     @endif 
                                                                   </div>
+                                                                  <label>Meta Tags<span class="meta_add_btn" id="add_meta_cur" ><i class="fa fa-plus"></i></span></label>
+                                                                  <div class="form-group meta-cur">
+                                                                    @php
+                                                                      $meta_info = DB::table('meta_tags')->where('jo_id', $category->id)->get();
+                                                                    @endphp
+                                                                    @if (count($meta_info))
+                                                                          @foreach ($meta_info as $val)
+                                                                            <div class="meta-item-cur">
+                                                                              <input type="hidden" class="meta_tag_id" name="meta_tag_id[]" value="{{{$val->id}}}">  
+                                                                              <input class="form-control" required="required" type="text" name="meta_tag_name[]" placeholder="Meta Tag Name" style="margin-bottom: 10px" value="{{{ $val->meta_name }}}">
+                                                                              <input class="form-control" required="required" type="text" name="meta_tag_des[]" placeholder="Meta Tag Description" style="margin-bottom: 10px" value="{{{ $val->meta_des }}}">
+                                                                              <span class="sj-addbtn sj-delbtn meta_del_cur"style="float: right; margin-bottom: 10px"><i class="fa fa-plus"></i></span>
+                                                                              <div style="clear:both;"></div>
+                                                                            </div>
+                                                                          @endforeach
+                                                                    @endif 
+                                                                  </div>
                                                             </fieldset>
                                                             <div class="sj-popupbtn">
                                                                 {!! Form::submit(trans('prs.btn_save'), ['class' => 'sj-btn sj-btnactive']) !!}
@@ -265,6 +282,14 @@
                                                         <input class="form-control" required="required" type="text" name="abstract_title[]" placeholder="Input Title" style="margin-bottom: 10px">
                                                         <input class="form-control add_url" required="required" name="abstract_url[]" placeholder="Input Url" style="margin-bottom: 10px">
                                                         <span class="sj-addbtn sj-delbtn abs_del" style="float: right; margin-bottom: 10px"><i class="fa fa-plus"></i></span>
+                                                      </div>
+                                                    </div>
+                                                    <label>Meta Tags<span class="meta_add_btn" id="add_meta"><i class="fa fa-plus"></i></span></label>
+                                                    <div class="form-group meta_tag">
+                                                      <div class="meta-item">
+                                                        <input class="form-control" required="required" type="text" name="meta_tag_name[]" placeholder="Meta Tag Name" style="margin-bottom: 10px">
+                                                        <input class="form-control" required="required" type="text" name="meta_tag_des[]" placeholder="Meta Tag Description" style="margin-bottom: 10px">
+                                                        <span class="sj-addbtn sj-delbtn meta_del" style="float: right; margin-bottom: 10px"><i class="fa fa-plus"></i></span>
                                                       </div>
                                                     </div>
                                                 </fieldset>

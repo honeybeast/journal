@@ -90,6 +90,24 @@ class Category extends Model
                         DB::table('abstract')->insert($data[$i]);
                     };
             }
+
+
+            if ($request->meta_tag_name) {
+            $meta_data = array();
+
+                for ($i=0; $i < count($request->meta_tag_name) ; $i++) {
+
+                    $meta_data[$i] = array(
+                        'jo_id'=>$id,
+                        'meta_name'=>$request->meta_tag_name[$i],
+                        'meta_des'=>$request->meta_tag_des[$i],
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s')
+                    );
+
+                    DB::table('meta_tags')->insert($meta_data[$i]);
+                };
+            }
         }
 
     }
@@ -205,6 +223,46 @@ class Category extends Model
                 }
             };
         }
+        
+        $meta_info = DB::table('meta_tags')->where('jo_id', $category_id)->get();
+
+        if ($request->meta_tag_id) {
+            if (count($meta_info)) {
+                foreach ($meta_info as $val) {
+                    if(!in_array($val->id, $request->meta_tag_id)) {
+                        DB::table('meta_tags')->where('id', $val->id)->delete();
+                    }
+                }
+            }
+        }else{
+            DB::table('meta_tags')->where('jo_id', $category_id)->delete();
+        }
+        
+        if ($request->meta_tag_name) {
+            for ($i=0; $i < count($request->meta_tag_name) ; $i++) {
+                if ($request->meta_tag_id[$i] == "") {
+
+                    $data[$i] = array();
+                    $data[$i] = array(
+                        'jo_id'=> $category_id,
+                        'meta_name'=>$request->meta_tag_name[$i],
+                        'meta_des'=>$request->meta_tag_des[$i],
+                        'created_at'=>date('Y-m-d H:i:s'),
+                        'updated_at'=>date('Y-m-d H:i:s')
+                    );
+                    DB::table('meta_tags')->insert($data[$i]);
+                }else{
+
+                    $data[$i] = array();
+                    $data[$i] = array(
+                        'meta_name'=>$request->meta_tag_name[$i],
+                        'meta_des'=>$request->meta_tag_des[$i],
+                        'updated_at'=>date('Y-m-d H:i:s')
+                    );
+                    DB::table('meta_tags')->where('id', $request->meta_tag_id[$i])->update($data[$i]);
+                }
+        }
+    }
     }
 
     /**
