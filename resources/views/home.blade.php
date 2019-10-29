@@ -1,6 +1,3 @@
-@php
-    echo"<h1>Site is down...</h1>";exit();
-@endphp
 @extends('master')
 @section('title'){{ config('app.name') }} @stop
 @section('description', 'This is description tag')
